@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech Emotion Recognition Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}" />
+
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+    <h1>   Analysis your voice to emotion</h1>
+    <br><br>
+    <h3>   Step 1 - Record your voice</h3>
+    <br>
+    <div style="max-width: 28em;">
+		<p>Recorded audio to wav:</p>
+
+		<select id="encodingTypeSelect">
+		  <option value="wav">Waveform Audio(.wav)</option>
+		</select>
+		<div id="controls">
+			<button id="recordButton">Record</button>
+			<button id="stopButton" disabled>Stop</button>
+		</div>
+		<div id="formats"></div>
+		<pre>Log</pre>
+		<pre id="log"></pre>
+        <br>
+        <h3>   Step 2 - Download your record </h3> 
+		
+		<ol id="recordingsList"></ol>
+	</div>
+
+    <div id="speechContainer">
+        <br>
+        <h3>Step 3 - Upload your .wav file</h3> 
+
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file"/>
+            <br>
+
+            <br>
+            <h3>Step 4 - Analysis audio to emotion recognition </h3> 
+            <input type="submit" id="submitButton" value="Analysis"/>
+        </form>
+
+        {% if emotion != "" %}
+            <div id="speechEmotionContainer">
+                <h3>Emotion Result:</h3>
+                <h1><p id="speechEmotion">{{ emotion }}</p></h1>
+            </div>
+        {% endif %}
+
+    </div>
+
+
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+    <script src="{{ url_for('static', filename='js/WebAudioRecorder.min.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}" ></script>
+
+
+</body>
+</html>
